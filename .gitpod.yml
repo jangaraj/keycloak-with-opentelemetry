@@ -1,0 +1,18 @@
+ports:
+  - port: 8080  # keycloak
+    onOpen: open-browser
+    visibility: public
+  - port: 16686 # jaeger
+    onOpen: open-browser
+    visibility: public
+  - port: 9464  # prometheus
+    onOpen: open-browser
+    visibility: public
+
+tasks:    
+  - name:   docker-compose
+    before:
+      echo 'Waiting for docker daemon to start' &&
+      while [ ! -S /var/run/docker.sock ]; do sleep 1; done;
+    init:
+      docker-compose -f .gitpod/docker-compose-gitpod.yml up -d --build
