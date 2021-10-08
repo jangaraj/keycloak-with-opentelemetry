@@ -11,8 +11,5 @@ ports:
 
 tasks:    
   - name:   docker-compose
-    before:
-      echo 'Waiting for docker daemon to start' &&
-      while [ ! -S /var/run/docker.sock ]; do sleep 1; done;
     init:
       docker-compose -f .gitpod/docker-compose-gitpod.yml up -d --build
