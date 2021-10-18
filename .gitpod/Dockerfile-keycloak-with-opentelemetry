@@ -1,5 +1,18 @@
 FROM quay.io/keycloak/keycloak-x:latest
 
+# see https://mvnrepository.com/artifact/io.quarkus/quarkus-opentelemetry-exporter-otlp-deployment
+ARG QUARKUS_OPENTELEMETRY_RELEASE=2.3.0.Final
+# see https://quarkus.io/guides/opentelemetry for Quarkus OTEL config properties
+
 RUN \
   curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent-all.jar \
-  -o /tmp/opentelemetry-javaagent-all.jar
+  -o /tmp/opentelemetry-javaagent-all.jar && \
+  curl -L https://repo1.maven.org/maven2/io/quarkus/quarkus-opentelemetry-exporter-otlp-deployment/${QUARKUS_OPENTELEMETRY_RELEASE}/quarkus-opentelemetry-exporter-otlp-deployment-${QUARKUS_OPENTELEMETRY_RELEASE}.jar \
+  -o /opt/jboss/keycloak/lib/lib/deployment/io.quarkus.quarkus-opentelemetry-exporter-otlp-deployment-${QUARKUS_OPENTELEMETRY_RELEASE}.jar && \
+  curl -L https://repo1.maven.org/maven2/io/quarkus/quarkus-opentelemetry-exporter-otlp/${QUARKUS_OPENTELEMETRY_RELEASE}/quarkus-opentelemetry-exporter-otlp-${QUARKUS_OPENTELEMETRY_RELEASE}.jar \
+  -o /opt/jboss/keycloak/lib/lib/main/io.quarkus.quarkus-opentelemetry-exporter-otlp-${QUARKUS_OPENTELEMETRY_RELEASE}.jar && \
+  echo "" >> /opt/jboss/keycloak/conf/keycloak.properties && \
+  echo "quarkus.opentelemetry.enabled=true" >> /opt/jboss/keycloak/conf/keycloak.properties && \
+  echo "quarkus.opentelemetry.tracer.sampler" >> /opt/jboss/keycloak/conf/keycloak.properties && \
+  echo "quarkus.opentelemetry.tracer.resource-attributes=service.name=keycloak-quarkus,tracer=quarkus" && \
+  echo "quarkus.opentelemetry.tracer.exporter.otlp.endpoint=http://jaeger:4317" >> /opt/jboss/keycloak/conf/keycloak.properties 

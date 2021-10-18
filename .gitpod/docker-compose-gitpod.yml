@@ -3,7 +3,9 @@ services:
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
-      - 16686:16686   
+      - 16686:16686 # Jaeger UI
+      - 4317:55680  # GRPC OTLP
+      - 13133:13133 # Healthcheck   
   keycloak:
     container_name: keycloak
     build:
