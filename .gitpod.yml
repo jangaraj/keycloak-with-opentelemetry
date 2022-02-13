@@ -9,7 +9,7 @@ ports:
     onOpen: open-browser
     visibility: public
 
-tasks:    
-  - name:   docker-compose
+tasks:
+  - name: docker-compose
     init:
-      docker-compose -f .gitpod/docker-compose-gitpod.yml up -d --build
+      docker-compose -f .gitpod/docker-compose-gitpod.yml up -d --build && docker logs -f keycloak
