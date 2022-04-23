@@ -5,11 +5,17 @@ ports:
   - port: 16686 # jaeger
     onOpen: open-browser
     visibility: public
-  - port: 9464  # prometheus
+  - port: 3000  # grafana
+    onOpen: open-browser
+    visibility: public
+  - port: 5601  # kibana
+    onOpen: open-browser
+    visibility: public
+  - port: 9090  # prometheuss
     onOpen: open-browser
     visibility: public
 
 tasks:
   - name: docker-compose
     init:
-      docker-compose -f .gitpod/docker-compose-gitpod.yml up -d --build && docker logs -f keycloak
+      docker-compose -f docker-compose.yaml up -d --build && docker logs -f keycloak

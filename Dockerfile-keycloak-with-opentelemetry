@@ -1,0 +1,10 @@
+FROM quay.io/keycloak/keycloak:latest
+
+# see https://github.com/aerogear/keycloak-metrics-spi/releases
+ARG KEYCLOAK_METRICS_SPI_RELEASE=2.5.3
+
+RUN \
+  curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar \
+  -o /tmp/opentelemetry-javaagent.jar && \
+  curl -L https://github.com/aerogear/keycloak-metrics-spi/releases/download/${KEYCLOAK_METRICS_SPI_RELEASE}/keycloak-metrics-spi-${KEYCLOAK_METRICS_SPI_RELEASE}.jar \
+  -o /opt/keycloak/providers/keycloak-metrics-spi.jar

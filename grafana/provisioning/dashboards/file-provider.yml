@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: 'file-provider'
+    orgId: 1
+    folder: 'Provisioned dashboards'
+    type: file
+    updateIntervalSeconds: 60
+    allowUiUpdates: false
+    options:
+      path: /provisioning/dashboards
+      foldersFromFilesStructure: true

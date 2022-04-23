@@ -1,0 +1,27 @@
+apiVersion: 1
+datasources:
+
+  - name: jaeger
+    uid: jaegerpoc
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    
+  - name: prometheus
+    uid: prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+
+  - name: elasticsearch
+    uid: elasticsearch
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200
+    database: '[keycloak-logs-]YYYY-MM-DD'
+    jsonData:
+      esVersion: "8.0.0"
+      interval: "Daily"
+      timeField: '@timestamp'
+      logMessageField: "message"
+      logLevelField: "level"
