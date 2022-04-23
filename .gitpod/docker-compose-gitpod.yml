@@ -24,6 +24,7 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_METRICS_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
       KC_HTTP_ENABLED: "true"
       KC_PROXY: edge
     depends_on:

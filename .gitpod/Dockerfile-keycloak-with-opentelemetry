@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:17.0.0
+FROM quay.io/keycloak/keycloak:18.0.0
 
 # see https://github.com/aerogear/keycloak-metrics-spi/releases
 ARG KEYCLOAK_METRICS_SPI_RELEASE=2.5.3
