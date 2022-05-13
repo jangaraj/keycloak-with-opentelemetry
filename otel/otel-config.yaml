@@ -28,7 +28,7 @@ receivers:
         scrape_interval: 10s
         metrics_path: /realms/master/metrics 
         static_configs:
-        - targets: ['keycloak:8080']
+        - targets: ['nginx:8080']
 
 processors:
   batch/otlp-traces:

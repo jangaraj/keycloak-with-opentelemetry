@@ -12,6 +12,9 @@ datasources:
     type: prometheus
     access: proxy
     url: http://prometheus:9090
+    jsonData:
+      timeInterval: "60s"
+      httpMethod: "POST"
 
   - name: elasticsearch
     uid: elasticsearch
@@ -25,3 +28,15 @@ datasources:
       timeField: '@timestamp'
       logMessageField: "message"
       logLevelField: "level"
+
+  - name: elasticsearch-nginx
+    uid: elasticsearchnginx
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200
+    database: '[nginx-logs-]YYYY-MM-DD'
+    jsonData:
+      esVersion: "8.0.0"
+      interval: "Daily"
+      timeField: '@timestamp'
+

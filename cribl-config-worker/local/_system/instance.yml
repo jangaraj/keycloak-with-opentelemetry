@@ -1,0 +1,11 @@
+distributed:
+  mode: worker
+  tags: []
+  master:
+    host: criblmaster
+    port: 4200
+    authToken: "#42:W1wU+4MkEpY8uqQnTAxqH0MIgDq8+0q7Beucqt0r8dA="
+    ipWhitelistRegex: /.*/
+    maxActiveCxn: 0
+    tls:
+      disabled: true

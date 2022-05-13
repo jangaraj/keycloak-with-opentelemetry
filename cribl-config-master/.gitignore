@@ -1,0 +1,18 @@
+# Do NOT REMOVE CRIBL and CUSTOM header lines!
+# DO NOT REMOVE rules under the CRIBL section as they may be reintroduced on update.
+# You can ONLY comment out rules in the CRIBL section.
+# You can add new rules in the CUSTOM section.
+### CRIBL SECTION -- DO NOT REMOVE ###
+default/ui
+default/data/ui
+bin
+log
+pid
+data/uploads
+diag
+**/state
+**/local/cribl/messages.yml
+thirdparty/
+*.cpuprofile
+**/auth/ssh/git.key
+### CUSTOM SECTION -- DO NOT REMOVE ###

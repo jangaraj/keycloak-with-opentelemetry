@@ -43,7 +43,7 @@
         "content": "Please wait a minute if you don't see any values.",
         "mode": "markdown"
       },
-      "pluginVersion": "8.5.0",
+      "pluginVersion": "8.5.2",
       "transparent": true,
       "type": "text"
     },
@@ -122,7 +122,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.5.0",
+      "pluginVersion": "8.5.2",
       "targets": [
         {
           "datasource": {
@@ -222,7 +222,7 @@
           "refId": "A"
         }
       ],
-      "title": "Keycloak metrics - CPU utlization [Prometheus]",
+      "title": "Keycloak metrics - CPU utilization [Prometheus]",
       "type": "timeseries"
     },
     {
@@ -465,6 +465,121 @@
       ],
       "title": "Keycloak logs [Elasticsearch]",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "builder",
+          "expr": "avg by(sli) (slimetric_avg_latency{app=\"keycloak\"})",
+          "legendFormat": "{{sli}}",
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "range": true,
+          "rawQuery": false,
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Keycloak SLI metric - avg latency [Prometheus]",
+      "type": "timeseries"
     }
   ],
   "refresh": "10s",
@@ -475,7 +590,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},

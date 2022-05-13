@@ -6,6 +6,7 @@ Keycloak legacy 17+ or Keycloak 17-).
 Single click provisioning 
 [![Gitpod ready-to-test](https://img.shields.io/badge/Gitpod-ready--to--test-blue?logo=gitpod)](https://gitpod.io/#https://github.com/jangaraj/keycloak-with-opentelemetry/) 
 - Keycloak login: `admin/admin`
+- Cribl login: `admin/adminadmin`
 
 ## Stack
 

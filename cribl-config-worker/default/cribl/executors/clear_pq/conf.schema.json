@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "title": "",
+  "required": ["outputId"],
+  "properties": {
+    "outputId": {
+      "type": "string",
+      "title": "Output Id",
+      "description": "Persistent Queue Destination"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+output: default
+groups: {}
+asyncFuncTimeout: 1000
+functions:
+  - id: serde
+    filter: "true"
+    disabled: null
+    conf:
+      mode: extract
+      type: json
+      srcField: message
+      remove:
+        - message
+    description: Parse Nginx JSON access log lines
+  - id: eval
+    filter: "true"
+    disabled: null
+    conf:
+      add:
+        - name: app
+          value: "'keycloak'"
+    description: Add metric dimension
+  - id: aggregation
+    filter: "true"
+    disabled: false
+    conf:
+      passthrough: true
+      preserveGroupBys: false
+      sufficientStatsOnly: false
+      metricsMode: true
+      timeWindow: 60s
+      aggregations:
+        - count().as('request_count')
+        - avg(response_request_time).as('avg_latency')
+        - min(response_request_time).as('min_latency')
+        - max(response_request_time).as('max_latency')
+        - perc(50, response_request_time).as('p50_latency')
+        - perc(90, response_request_time).as('p90_latency')
+        - perc(95, response_request_time).as('p95_latency')
+        - perc(99, response_request_time).as('p99_latency')
+        - perc(99.5, response_request_time).as('p99_5_latency')
+        - perc(99.9, response_request_time).as('p99_9_latency')
+        - count().where(response_status_code>=500 &&
+          response_status_code<600).as('5xx_count')
+        - count().where(response_request_time>0.3).as('slow_count')
+      cumulative: false
+      flushOnInputClose: false
+      groupbys:
+        - app
+        - sli
+      lagTolerance: 30s
+      idleTimeLimit: 60s
+      prefix: slimetric_
+      add:
+        - name: sli
+          value: "'global'"
+    description: Calculate SLI metrics
+  - id: eval
+    filter: "true"
+    disabled: null
+    conf:
+      remove:
+        - cribl_host
+        - cribl_pipe
+        - endtime
+        - starttime
+    description: Remove unwantend fields
+  - id: code
+    filter: "true"
+    disabled: null
+    conf:
+      maxNumOfIterations: 5000
+      code: "if (__e.__criblMetrics && __e.__criblMetrics.length &&
+        __e.__criblMetrics[0].types) {\r
+
+        \  __e.__criblMetrics[0].types =
+        __e.__criblMetrics[0].types.map(t => 'gauge')\r
+
+        }"
+  - id: drop
+    filter: host
+    disabled: false
+    conf: {}
+    description: Drop all logs, keep only metrics

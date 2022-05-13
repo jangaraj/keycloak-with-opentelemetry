@@ -1,0 +1,12 @@
+tC9mSj:
+  sampleName: nginx-access.log
+  ttl: 24000
+  created: 1652440529221
+  size: 23005
+  numEvents: 10
+GlWIfY:
+  sampleName: nginx-access2.log
+  ttl: 24000
+  created: 1652442314043
+  size: 23005
+  numEvents: 10

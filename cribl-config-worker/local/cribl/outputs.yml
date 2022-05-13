@@ -1,0 +1,38 @@
+outputs:
+  otel-collector:
+    systemFields:
+      - cribl_pipe
+    streamtags: []
+    authType: none
+    tls:
+      disabled: true
+    concurrency: 5
+    maxPayloadSizeKB: 4096
+    timeoutSec: 30
+    flushPeriodSec: 1
+    failedRequestLoggingMode: none
+    safeHeaders: []
+    connectionTimeout: 10000
+    keepAliveTime: 30
+    onBackpressure: block
+    type: open_telemetry
+    endpoint: http://otel:4317
+  prometheus:
+    systemFields: []
+    streamtags: []
+    metricRenameExpr: name.replace(/[^a-zA-Z0-9_]/g, '_')
+    sendMetadata: true
+    concurrency: 5
+    maxPayloadSizeKB: 4096
+    maxPayloadEvents: 0
+    rejectUnauthorized: false
+    timeoutSec: 30
+    flushPeriodSec: 1
+    useRoundRobinDns: false
+    failedRequestLoggingMode: none
+    safeHeaders: []
+    onBackpressure: block
+    authType: none
+    metricsFlushPeriodSec: 60
+    type: prometheus
+    url: http://prometheus:9090/api/v1/write
