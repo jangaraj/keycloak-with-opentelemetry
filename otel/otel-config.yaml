@@ -47,6 +47,9 @@ exporters:
     endpoint: jaeger:14250
     tls:
       insecure: true
+  # logging
+  logging:
+    verbosity: detailed
 
 service:
   extensions: [health_check]
